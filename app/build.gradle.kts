@@ -38,6 +38,7 @@ android {
 
 dependencies {
     implementation(project(":data"))
+    implementation(project(":domain"))
 
     implementation(Libs.coreKtx)
     implementation("androidx.appcompat:appcompat:1.6.1")

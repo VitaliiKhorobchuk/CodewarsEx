@@ -30,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
 
     implementation(Libs.coreKtx)
     implementation("androidx.appcompat:appcompat:1.6.1")

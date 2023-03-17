@@ -30,11 +30,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
 
     implementation(Libs.coreKtx)
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(Libs.appCompat)
     implementation(Libs.retrofit)
     implementation(Libs.kotlinxCoroutinesAndroid)
+    implementation("com.squareup.retrofit2:converter-gson:2.1.0")
     testImplementation("junit:junit:4.13.2")
 }
