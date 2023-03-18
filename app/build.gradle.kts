@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -41,10 +43,32 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(Libs.coreKtx)
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(Libs.appCompat)
+    implementation(Libs.activity)
+    implementation(Libs.activityKtx)
+    implementation(Libs.lifecycleViewModelKtx)
+    implementation(Libs.lifecycleViewModelCompose)
+    implementation(Libs.lifecycleViewModelSavedState)
+
+    implementation(Libs.retrofit)
+    implementation(Libs.gsonConverter)
+
+    // DI
+    implementation(Libs.hiltAndroid)
+    kapt(Libs.hiltCompiler)
+
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}
+
+hilt {
+    enableAggregatingTask = true
 }

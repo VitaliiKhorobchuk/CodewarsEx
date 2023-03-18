@@ -20,8 +20,8 @@ data class ChallengesListData(
 
 data class ChallengeData(
     val id: String,
-    val name: String,
-    val slug: String,
+    val name: String?,
+    val slug: String?,
     val completedAt: String,
     val completedLanguages: List<String>?,
 ) {

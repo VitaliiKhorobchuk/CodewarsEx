@@ -2,8 +2,9 @@ package com.example.domain.use_case
 
 import com.example.data.repository.ChallengesRepository
 import com.example.domain.data.ChallengesListData
+import javax.inject.Inject
 
-class ChallengesListUseCase(
+class ChallengesListUseCase @Inject constructor(
     private val challengesRepository: ChallengesRepository
 ) {
 

@@ -2,12 +2,27 @@
 object Libs {
 
     const val retrofit: String = "com.squareup.retrofit2:retrofit:2.9.0"
+    const val gsonConverter: String = "com.squareup.retrofit2:converter-gson:2.1.0"
 
     const val kotlinxCoroutinesAndroid: String =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
     const val appCompat: String = "androidx.appcompat:appcompat:1.6.1"
     const val coreKtx: String = "androidx.core:core-ktx:1.9.0"
 
+    const val activity: String = "androidx.activity:activity:1.6.1"
+    const val activityKtx: String = "androidx.activity:activity-ktx:1.6.1"
+    const val lifecycleViewModelKtx: String =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+    const val lifecycleViewModelCompose: String =
+        "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0"
+    const val lifecycleViewModelSavedState: String =
+        "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0"
+    const val hiltAndroid: String = "com.google.dagger:hilt-android:2.44"
+    const val hiltCompiler: String = "com.google.dagger:hilt-android-compiler:2.44"
+
+
+    const val hiltViewModel: String = "androidx.hilt:hilt-lifecycle-viewmodel:2.44"
+    const val hiltViewModelCompiler: String = "androidx.hilt:hilt-compiler:2.44"
 
 
     const val material: String = "com.google.android.material:material:_"
@@ -20,18 +35,10 @@ object Libs {
 
     const val lifecycleLivedataKtx: String =
         "androidx.lifecycle:lifecycle-livedata-ktx:_"
-    const val lifecycleViewModelKtx: String =
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:_"
-    const val lifecycleViewModelSavedState: String =
-        "androidx.lifecycle:lifecycle-viewmodel-savedstate:_"
+
 
 
     const val workRuntimeKtx: String = "androidx.work:work-runtime-ktx:_"
-
-    const val hiltAndroid: String = "com.google.dagger:hilt-android:_"
-    const val hiltCompiler: String = "com.google.dagger:hilt-compiler:_"
-    const val hiltViewModel: String = "androidx.hilt:hilt-lifecycle-viewmodel:_"
-    const val hiltViewModelCompiler: String = "androidx.hilt:hilt-compiler:_"
 
     const val kotlinxCoroutinesCore: String =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:_"

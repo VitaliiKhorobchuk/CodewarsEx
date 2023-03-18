@@ -4,8 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.TextView
-import com.example.data.TestApi
+import com.example.data.ApiBuilder
 import com.example.data.repository.ChallengesRepositoryImpl
 import com.example.domain.data.ChallengeData
 import com.example.domain.use_case.ChallengesInfoUseCase
@@ -13,7 +12,6 @@ import com.example.domain.use_case.ChallengesListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getChallengesList() {
-        val service = TestApi().test()
+        val service = ApiBuilder().test()
         val repository = ChallengesRepositoryImpl(service)
         val useCase = ChallengesListUseCase(repository)
 
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getChallengeInfo() {
-        val service = TestApi().test()
+        val service = ApiBuilder().test()
         val repository = ChallengesRepositoryImpl(service)
         val useCase = ChallengesInfoUseCase(repository)
 

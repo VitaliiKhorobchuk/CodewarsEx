@@ -4,8 +4,9 @@ import com.example.data.model.ChallengeInfoDataModel
 import com.example.data.model.ChallengesListDataModel
 import com.example.data.service.CodeWarsChallengesService
 import retrofit2.Response
+import javax.inject.Inject
 
-class ChallengesRepositoryImpl(
+class ChallengesRepositoryImpl @Inject constructor(
     private val codeWarsChallengesService: CodeWarsChallengesService
 ): ChallengesRepository {
 

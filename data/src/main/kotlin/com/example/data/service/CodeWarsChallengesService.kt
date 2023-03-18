@@ -8,7 +8,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CodeWarsChallengesService {
-
     @GET("users/{user}/code-challenges/completed")
     suspend fun getCompletedChallenges(@Path("user") user: String, @Query("page") page: Int): Response<ChallengesListDataModel>
 

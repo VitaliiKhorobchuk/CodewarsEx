@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -33,8 +34,12 @@ dependencies {
 
     implementation(Libs.coreKtx)
     implementation(Libs.appCompat)
-    implementation(Libs.retrofit)
     implementation(Libs.kotlinxCoroutinesAndroid)
-    implementation("com.squareup.retrofit2:converter-gson:2.1.0")
+    implementation(Libs.retrofit)
+    implementation(Libs.gsonConverter)
+    // DI
+    implementation(Libs.hiltAndroid)
+    kapt(Libs.hiltCompiler)
+
     testImplementation("junit:junit:4.13.2")
 }

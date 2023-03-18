@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -36,5 +37,9 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation(Libs.retrofit)
     implementation(Libs.kotlinxCoroutinesAndroid)
+    // DI
+    implementation(Libs.hiltAndroid)
+    kapt(Libs.hiltCompiler)
+
     testImplementation("junit:junit:4.13.2")
 }

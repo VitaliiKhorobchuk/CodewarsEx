@@ -4,7 +4,7 @@ import com.example.data.service.CodeWarsChallengesService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class TestApi {
+class ApiBuilder {
 
     fun test(): CodeWarsChallengesService {
         val retrofit = Retrofit.Builder()
