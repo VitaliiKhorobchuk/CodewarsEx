@@ -15,15 +15,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.domain.data.ChallengeInfoData
+import com.example.myapplication.R
 import com.example.myapplication.theme.CustomAppTheme
 import com.example.myapplication.utils.ErrorScreenState
 import com.example.myapplication.utils.GeneralText
@@ -69,11 +72,12 @@ fun MainStructure(challengeInfoData: ChallengeInfoData, modifier: Modifier = Mod
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        TitleText(text = challengeInfoData.name ?: "General nameCle")
-        SmallText(text = "Challenge category: ${challengeInfoData.category}")
+        TitleText(text = challengeInfoData.name ?: stringResource(id = R.string.general_challenge_name))
+        SmallText(text = stringResource(R.string.challenge_info_category, challengeInfoData.category))
+        Divider(color = MaterialTheme.colors.primary)
         GeneralText(text = challengeInfoData.description)
-        val rank = challengeInfoData.rankName + challengeInfoData.rankColor
-        GeneralText(text = "Rank: $rank")
+        Divider(color = MaterialTheme.colors.primary)
+        GeneralText(text = stringResource(R.string.challenge_info_rank, challengeInfoData.rankName ?: ""))
 
         Attempts(challengeInfoData = challengeInfoData)
         Spacer(modifier = modifier.height(16.dp))
@@ -86,30 +90,38 @@ fun MainStructure(challengeInfoData: ChallengeInfoData, modifier: Modifier = Mod
 @Composable
 fun Attempts(modifier: Modifier = Modifier, challengeInfoData: ChallengeInfoData) {
     OutlinedRow {
-        GeneralText(text = "Total attempts: \n\n${challengeInfoData.totalAttempts}")
+        GeneralText(text = stringResource(R.string.challenge_info_attempts, challengeInfoData.totalAttempts))
         Spacer(modifier = modifier.width(16.dp))
-        GeneralText(text = "Total completed: \n\n${challengeInfoData.totalCompleted}")
+        GeneralText(text = stringResource(R.string.challenge_info_completed, challengeInfoData.totalCompleted))
     }
 }
 
 @Composable
 fun Score(modifier: Modifier = Modifier, challengeInfoData: ChallengeInfoData) {
     OutlinedRow {
-        GeneralText(text = "Total stars: \n\n${challengeInfoData.totalStars}")
+        GeneralText(text = stringResource(R.string.challenge_info_stars, challengeInfoData.totalStars))
         Spacer(modifier = modifier.width(16.dp))
-        GeneralText(text = "Vote score: \n\n${challengeInfoData.voteScore}")
+        GeneralText(text = stringResource(R.string.challenge_info_vote_score, challengeInfoData.voteScore))
     }
 }
 
 @Composable
 fun AuthorInfo(modifier: Modifier = Modifier, challengeInfoData: ChallengeInfoData) {
     OutlinedRow {
-        GeneralText(text = "Created by: ${challengeInfoData.createdBy}, at \n\n ${challengeInfoData.publishedAt}")
+        GeneralText(
+            text = stringResource(
+                R.string.challenge_info_created,
+                challengeInfoData.createdBy ?: "",
+                challengeInfoData.publishedAt
+            )
+        )
         Spacer(modifier = modifier.width(16.dp))
         GeneralText(
-            text = "Approved by: ${challengeInfoData.approvedBy}, at \n" +
-                "\n" +
-                " ${challengeInfoData.publishedAt}"
+            text = stringResource(
+                R.string.challenge_info_approved,
+                challengeInfoData.approvedBy ?: "",
+                challengeInfoData.approvedAt
+            )
         )
     }
 }

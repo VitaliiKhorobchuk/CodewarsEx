@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">CodeWars App</string>
+    <string name="general_challenge_name">Generic name</string>
+    <string name="general_error_message">An unexpected error has happened</string>
+    <string name="error_message_hint">Please retry loading.</string>
+    <string name="error_button">Retry</string>
+    <string name="general_loading_text">Loading…</string>
+
+    <!-- Challenge list -->
+    <string name="challenges_list_screen_title">Challenges list for %1$s</string>
+    <string name="pagination_loading">Pagination Loading</string>
+
+    <!-- Challenge list -->
     <string name="challenge_info_screen_title">Challenge Info</string>
+    <string name="challenge_info_category">Challenge category: %1$s</string>
+    <string name="challenge_info_rank">Rank: %1$s</string>
+    <string name="challenge_info_attempts">Total attempts:\n\n%1$d</string>
+    <string name="challenge_info_completed">Total completed:\n\n%1$d</string>
+    <string name="challenge_info_stars">Total stars:\n\n%1$d</string>
+    <string name="challenge_info_vote_score">Vote score:\n\n%1$d</string>
+    <string name="challenge_info_created">Created by: %1$s, at\n\n%2$s</string>
+    <string name="challenge_info_approved">Approved by: %1$s, at\n\n%2$s</string>
+
 </resources>

@@ -1,6 +1,5 @@
 package com.example.myapplication.challenges_list
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,11 +23,13 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.R
 import com.example.myapplication.navigation.ChallengeInfoNavigation
 import com.example.myapplication.theme.CustomAppTheme
 import com.example.myapplication.utils.ErrorScreenState
@@ -80,7 +81,7 @@ fun MainStructure(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TitleText(text = "Challenges list for ${viewModel.getUserName()}")
+        TitleText(text = stringResource(R.string.challenges_list_screen_title, viewModel.getUserName()))
 
         LazyColumn(state = lazyColumnListState) {
             items(items = challengeListState.challengesData) {
@@ -88,14 +89,13 @@ fun MainStructure(
                     modifier
                         .fillMaxWidth()
                         .clickable {
-                            Log.d("VKTAG", "ChallengesListScreen MainStructure: ${it.id}")
                             navController.navigate(ChallengeInfoNavigation.challengeInfo(it.id).destination)
                         },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     GeneralText(
                         modifier = modifier.weight(1f),
-                        text = it.name ?: "Generic name"
+                        text = it.name ?: stringResource(id = R.string.general_challenge_name)
                     )
                     Icon(
                         imageVector = Icons.Rounded.KeyboardArrowRight,
@@ -119,7 +119,7 @@ fun MainStructure(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
                         ) {
-                            GeneralText(text = "Pagination Loading")
+                            GeneralText(text = stringResource(id = R.string.pagination_loading))
 
                             CircularProgressIndicator(color = MaterialTheme.colors.primary)
                         }

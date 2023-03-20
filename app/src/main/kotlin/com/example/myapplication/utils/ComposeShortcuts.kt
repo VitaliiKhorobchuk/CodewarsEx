@@ -12,10 +12,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
 
 @Composable
 fun GeneralText(text: String, modifier: Modifier = Modifier) {
@@ -64,12 +66,12 @@ fun ErrorScreenState(modifier: Modifier = Modifier, reloadFunction: () -> Unit) 
         verticalArrangement = Arrangement.Center,
     ) {
         TitleText(
-            text = "An unexpected error has happened"
+            text = stringResource(id = R.string.general_error_message)
         )
-        GeneralText(text = "Please retry loading.")
+        GeneralText(text = stringResource(id = R.string.error_message_hint))
 
         Button(onClick = reloadFunction) {
-            GeneralText(text = "Retry")
+            GeneralText(text = stringResource(id = R.string.error_button))
         }
     }
 }
@@ -83,7 +85,7 @@ fun LoadingScreenState(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
     ) {
         GeneralText(
-            text = "Loading..."
+            text = stringResource(id = R.string.general_loading_text)
         )
 
         CircularProgressIndicator(color = MaterialTheme.colors.primary)
