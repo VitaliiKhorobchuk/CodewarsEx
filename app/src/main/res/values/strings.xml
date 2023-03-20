@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CodeWars App</string>
+    <string name="challenge_info_screen_title">Challenge Info</string>
 </resources>

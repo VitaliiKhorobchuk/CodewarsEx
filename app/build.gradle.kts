@@ -36,6 +36,12 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.0"
+    }
 }
 
 dependencies {
@@ -46,16 +52,26 @@ dependencies {
     implementation(Libs.appCompat)
     implementation(Libs.activity)
     implementation(Libs.activityKtx)
-    implementation(Libs.lifecycleViewModelKtx)
+    // implementation(Libs.lifecycleViewModelKtx)
     implementation(Libs.lifecycleViewModelCompose)
-    implementation(Libs.lifecycleViewModelSavedState)
+    // implementation(Libs.lifecycleViewModelSavedState)
 
     implementation(Libs.retrofit)
     implementation(Libs.gsonConverter)
 
+    implementation("androidx.compose.ui:ui:1.3.3")
+    implementation("androidx.compose.ui:ui-tooling:1.3.3")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")
+    implementation("androidx.compose.material:material:1.3.1")
+    implementation("androidx.activity:activity-compose:1.6.1")
+
     // DI
     implementation(Libs.hiltAndroid)
+    // implementation(Libs.hiltViewModel)
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     kapt(Libs.hiltCompiler)
+    // kapt(Libs.hiltViewModelCompiler)
 
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
