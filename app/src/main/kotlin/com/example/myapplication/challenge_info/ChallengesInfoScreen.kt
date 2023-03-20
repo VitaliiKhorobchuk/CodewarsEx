@@ -31,40 +31,46 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.domain.data.ChallengeInfoData
 import com.example.myapplication.theme.CustomAppTheme
+import com.example.myapplication.utils.GeneralText
+import com.example.myapplication.utils.SmallText
+import com.example.myapplication.utils.TitleText
 
 @Composable
 fun ChallengeInfoScreen(
     modifier: Modifier = Modifier,
-    challengeInfoViewModel: ChallengeInfoViewModel = hiltViewModel(),
+    // challengeInfoViewModel: ChallengeInfoViewModel = hiltViewModel(),
 ) {
-    val collectAsState = challengeInfoViewModel.stateFlow.collectAsState()
-    if (collectAsState.value.isLoading) {
-        Log.d("VKTAG", "ChallengeInfoScreen loading")
-    } else if (collectAsState.value.error != null) {
-        Log.d("VKTAG", "ChallengeInfoScreen error")
-    } else if (collectAsState.value.challengeData != null) {
-        Log.d("VKTAG", "ChallengeInfoScreen data ${collectAsState.value}")
-        MainStructure(challengeInfoData = collectAsState.value.challengeData!!)
-    }
-    // val info = ChallengeInfoData(
-    //     "Challenge title",
-    //     "Challenge title",
-    //     "Java",
-    //     "Some very long description with a lot of text to display. Probably a lot of symbols should be here",
-    //     listOf("Tag 1", "Tag 2", "Tag3"),
-    //     listOf("Java", "Kotlin", "Android"),
-    //     "Very cool",
-    //     "Gold",
-    //     "creator name",
-    //     "approver name",
-    //     10,
-    //     1,
-    //     123_000,
-    //     5,
-    //     "published date",
-    //     "approved date"
-    // )
+    // val collectAsState = challengeInfoViewModel.stateFlow.collectAsState()
+    // if (collectAsState.value.isLoading) {
+    //     Log.d("VKTAG", "ChallengeInfoScreen loading")
+    // } else if (collectAsState.value.error != null) {
+    //     Log.d("VKTAG", "ChallengeInfoScreen error")
+    // } else if (collectAsState.value.challengeData != null) {
+    //     Log.d("VKTAG", "ChallengeInfoScreen data ${collectAsState.value}")
+    //     MainStructure(challengeInfoData = collectAsState.value.challengeData!!, modifier)
+    // }
+    MainStructure(challengeInfoData = getTestInfo(), modifier)
+
 }
+
+private fun getTestInfo() = ChallengeInfoData(
+        "Challenge title",
+        "Challenge title",
+        "Java",
+        "Some very long description with a lot of text to display. Probably a lot of symbols should be here",
+        listOf("Tag 1", "Tag 2", "Tag3"),
+        listOf("Java", "Kotlin", "Android"),
+        "Very cool",
+        "Gold",
+        "creator name",
+        "approver name",
+        10,
+        1,
+        123_000,
+        5,
+        "published date",
+        "approved date"
+    )
 
 @Composable
 fun MainStructure(challengeInfoData: ChallengeInfoData, modifier: Modifier = Modifier) {
@@ -76,15 +82,7 @@ fun MainStructure(challengeInfoData: ChallengeInfoData, modifier: Modifier = Mod
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        Text(
-            modifier = modifier
-                .padding(top = 12.dp, bottom = 12.dp),
-            text = challengeInfoData.name,
-            style = TextStyle.Default,
-            fontSize = 24.sp,
-            color = MaterialTheme.colors.onBackground
-        )
-
+        TitleText(text = challengeInfoData.name)
         SmallText(text = "Challenge category: ${challengeInfoData.category}")
         GeneralText(text = challengeInfoData.description)
         val rank = challengeInfoData.rankName + challengeInfoData.rankColor
@@ -138,31 +136,6 @@ fun OutlinedRow(function: @Composable RowScope.() -> Unit) {
     )
 }
 
-@Composable
-fun GeneralText(text: String, modifier: Modifier = Modifier) {
-    Text(
-        modifier = modifier
-            .padding(top = 12.dp, bottom = 12.dp),
-        text = text,
-        style = TextStyle.Default,
-        fontSize = 16.sp,
-        color = MaterialTheme.colors.onBackground,
-        textAlign = TextAlign.Center,
-    )
-}
-
-@Composable
-fun SmallText(text: String, modifier: Modifier = Modifier) {
-    Text(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(12.dp),
-        text = text,
-        style = TextStyle.Default,
-        fontSize = 12.sp,
-        color = MaterialTheme.colors.onBackground
-    )
-}
 
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable

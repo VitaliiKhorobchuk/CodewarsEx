@@ -3,8 +3,10 @@ package com.example.myapplication.challenges_list
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.data.ChallengeData
 import com.example.domain.data.ChallengesListData
 import com.example.domain.use_case.ChallengesListUseCase
+import com.example.myapplication.utils.ListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,8 +18,10 @@ class ChallengesListViewModel @Inject constructor(
     private val challengesListUseCase: ChallengesListUseCase
 ) : ViewModel() {
 
-    private val _stateFlow = MutableStateFlow(ChallengesListState(isLoading = true))
+    private val _stateFlow = MutableStateFlow(ChallengesListState(listState = ListState.LOADING))
     val stateFlow = _stateFlow.asStateFlow()
+    var canPaginate = true
+    private val totalChallengesList = mutableListOf<ChallengeData>()
 
     private var currentPage = FIRST_PAGE
     private var totalPages = DEFAULT_PAGES_NUMBER
@@ -29,8 +33,22 @@ class ChallengesListViewModel @Inject constructor(
     fun getNextPage() {
         if (currentPage < totalPages) {
             currentPage++
+            _stateFlow.value = ChallengesListState(
+                challengesData = totalChallengesList,
+                listState = ListState.PAGINATING
+            )
             getChallenges()
+        } else {
+            canPaginate = false
         }
+    }
+
+    fun reset() {
+        _stateFlow.value = ChallengesListState(listState = ListState.LOADING)
+        canPaginate = true
+        currentPage = FIRST_PAGE
+        totalPages = DEFAULT_PAGES_NUMBER
+        getChallenges()
     }
 
     private fun getChallenges() {
@@ -38,12 +56,17 @@ class ChallengesListViewModel @Inject constructor(
             Log.d("VKTAG", "ChallengesListViewModel: getChallenges page - $currentPage")
 
             val challengesList = challengesListUseCase.getChallengesList(USER_ID, currentPage)
+            if (currentPage == FIRST_PAGE) {
+                totalChallengesList.clear()
+            }
+            totalChallengesList.addAll(challengesList.challenges)
 
-            Log.d("VKTAG", "ChallengesListViewModel: getChallenges obtained - ${challengesList.challenges.count()}")
+            Log.d("VKTAG", "ChallengesListViewModel: getChallenges obtained - ${challengesList.challenges}")
             handlePages(challengesList)
 
             _stateFlow.value = ChallengesListState(
-                challengesData = challengesList.challenges
+                challengesData = totalChallengesList,
+                listState = ListState.IDLE
             )
         }
     }
