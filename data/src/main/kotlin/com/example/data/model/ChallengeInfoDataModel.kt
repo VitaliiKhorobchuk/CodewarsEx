@@ -2,8 +2,8 @@ package com.example.data.model
 
 class ChallengeInfoDataModel(
     val id: String,
-    val name: String,
-    val slug: String,
+    val name: String?,
+    val slug: String?,
     val url: String,
     val category: String,
     val description: String,
@@ -22,16 +22,16 @@ class ChallengeInfoDataModel(
 
 class ChallengeInfoRankModel(
     val id: String,
-    val name: String,
+    val name: String?,
     val color: String,
 )
 
 class ChallengeInfoCreatedByModel(
-    val username: String,
+    val username: String?,
     val url: String,
 )
 
 class ChallengeInfoApprovedByModel(
-    val username: String,
+    val username: String?,
     val url: String,
 )

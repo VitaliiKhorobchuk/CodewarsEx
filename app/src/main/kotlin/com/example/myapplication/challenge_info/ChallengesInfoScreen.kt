@@ -1,7 +1,6 @@
 package com.example.myapplication.challenge_info
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -11,66 +10,54 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.domain.data.ChallengeInfoData
 import com.example.myapplication.theme.CustomAppTheme
+import com.example.myapplication.utils.ErrorScreenState
 import com.example.myapplication.utils.GeneralText
+import com.example.myapplication.utils.LoadingScreenState
 import com.example.myapplication.utils.SmallText
 import com.example.myapplication.utils.TitleText
+import com.example.myapplication.utils.UiState
 
 @Composable
 fun ChallengeInfoScreen(
     modifier: Modifier = Modifier,
-    // challengeInfoViewModel: ChallengeInfoViewModel = hiltViewModel(),
+    challengeInfoViewModel: ChallengeInfoViewModel = hiltViewModel(),
 ) {
-    // val collectAsState = challengeInfoViewModel.stateFlow.collectAsState()
-    // if (collectAsState.value.isLoading) {
-    //     Log.d("VKTAG", "ChallengeInfoScreen loading")
-    // } else if (collectAsState.value.error != null) {
-    //     Log.d("VKTAG", "ChallengeInfoScreen error")
-    // } else if (collectAsState.value.challengeData != null) {
-    //     Log.d("VKTAG", "ChallengeInfoScreen data ${collectAsState.value}")
-    //     MainStructure(challengeInfoData = collectAsState.value.challengeData!!, modifier)
-    // }
-    MainStructure(challengeInfoData = getTestInfo(), modifier)
-
+    val collectAsState = challengeInfoViewModel.stateFlow.collectAsState()
+    when (collectAsState.value.viewState) {
+        UiState.READY -> {
+            if (collectAsState.value.challengeData != null) {
+                MainStructure(challengeInfoData = collectAsState.value.challengeData!!, modifier)
+            } else {
+                ErrorScreenState {
+                    challengeInfoViewModel.reload()
+                }
+            }
+        }
+        UiState.LOADING -> {
+            LoadingScreenState()
+        }
+        UiState.ERROR -> {
+            ErrorScreenState {
+                challengeInfoViewModel.reload()
+            }
+        }
+    }
 }
-
-private fun getTestInfo() = ChallengeInfoData(
-        "Challenge title",
-        "Challenge title",
-        "Java",
-        "Some very long description with a lot of text to display. Probably a lot of symbols should be here",
-        listOf("Tag 1", "Tag 2", "Tag3"),
-        listOf("Java", "Kotlin", "Android"),
-        "Very cool",
-        "Gold",
-        "creator name",
-        "approver name",
-        10,
-        1,
-        123_000,
-        5,
-        "published date",
-        "approved date"
-    )
 
 @Composable
 fun MainStructure(challengeInfoData: ChallengeInfoData, modifier: Modifier = Modifier) {
@@ -82,7 +69,7 @@ fun MainStructure(challengeInfoData: ChallengeInfoData, modifier: Modifier = Mod
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-        TitleText(text = challengeInfoData.name)
+        TitleText(text = challengeInfoData.name ?: "General nameCle")
         SmallText(text = "Challenge category: ${challengeInfoData.category}")
         GeneralText(text = challengeInfoData.description)
         val rank = challengeInfoData.rankName + challengeInfoData.rankColor
@@ -135,7 +122,6 @@ fun OutlinedRow(function: @Composable RowScope.() -> Unit) {
             .padding(12.dp), content = function
     )
 }
-
 
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable

@@ -1,18 +1,19 @@
 package com.example.domain.data
 
 import com.example.data.model.ChallengeInfoDataModel
+import com.example.domain.utils.parseDateString
 
 data class ChallengeInfoData(
-    val name: String,
+    val name: String?,
     val url: String,
     val category: String,
     val description: String,
     val tags: List<String>,
     val languages: List<String>,
-    val rankName: String,
+    val rankName: String?,
     val rankColor: String,
-    val createdBy: String,
-    val approvedBy: String,
+    val createdBy: String?,
+    val approvedBy: String?,
     val totalAttempts: Int,
     val totalCompleted: Int,
     val totalStars: Int,
@@ -36,7 +37,7 @@ data class ChallengeInfoData(
         challengeInfoDataModel.totalCompleted,
         challengeInfoDataModel.totalStars,
         challengeInfoDataModel.voteScore,
-        challengeInfoDataModel.publishedAt,
-        challengeInfoDataModel.approvedAt,
+        challengeInfoDataModel.publishedAt.parseDateString(),
+        challengeInfoDataModel.approvedAt.parseDateString(),
     )
 }

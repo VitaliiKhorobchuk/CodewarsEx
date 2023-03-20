@@ -1,6 +1,5 @@
 package com.example.myapplication.challenges_list
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.data.ChallengeData
@@ -38,11 +37,12 @@ class ChallengesListViewModel @Inject constructor(
                 listState = ListState.PAGINATING
             )
             getChallenges()
-        } else {
+        } else if (totalPages != DEFAULT_PAGES_NUMBER) {
             canPaginate = false
         }
     }
 
+    fun getUserName() = USER_ID
     fun reset() {
         _stateFlow.value = ChallengesListState(listState = ListState.LOADING)
         canPaginate = true
@@ -53,15 +53,12 @@ class ChallengesListViewModel @Inject constructor(
 
     private fun getChallenges() {
         viewModelScope.launch {
-            Log.d("VKTAG", "ChallengesListViewModel: getChallenges page - $currentPage")
-
-            val challengesList = challengesListUseCase.getChallengesList(USER_ID, currentPage)
+            val challengesList = challengesListUseCase.getChallengesList(getUserName(), currentPage)
             if (currentPage == FIRST_PAGE) {
                 totalChallengesList.clear()
             }
             totalChallengesList.addAll(challengesList.challenges)
 
-            Log.d("VKTAG", "ChallengesListViewModel: getChallenges obtained - ${challengesList.challenges}")
             handlePages(challengesList)
 
             _stateFlow.value = ChallengesListState(

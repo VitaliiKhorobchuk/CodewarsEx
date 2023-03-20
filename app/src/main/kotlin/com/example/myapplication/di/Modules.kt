@@ -11,6 +11,7 @@ import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -26,10 +27,14 @@ object MainModule {
         return retrofit.create(CodeWarsChallengesService::class.java)
     }
 
+    // @Singleton
+    // @Provides
+    // fun providesNavigationManager() = NavigationManager()
 }
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class ActivityModule {
+
 
     @Binds
     abstract fun bindChallengesRepository(

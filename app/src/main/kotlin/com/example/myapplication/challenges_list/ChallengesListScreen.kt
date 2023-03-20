@@ -1,7 +1,6 @@
 package com.example.myapplication.challenges_list
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.domain.data.ChallengeData
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.navigation.ChallengeInfoNavigation
 import com.example.myapplication.theme.CustomAppTheme
 import com.example.myapplication.utils.ErrorScreenState
 import com.example.myapplication.utils.GeneralText
@@ -39,7 +40,8 @@ import com.example.myapplication.utils.TitleText
 @Composable
 fun ChallengesListScreen(
     modifier: Modifier = Modifier,
-    viewModel: ChallengesListViewModel = hiltViewModel()
+    viewModel: ChallengesListViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val screenState = viewModel.stateFlow.collectAsState()
 
@@ -48,12 +50,17 @@ fun ChallengesListScreen(
             viewModel.reset()
         }
     } else {
-        MainStructure(challengeListState = screenState.value, modifier, viewModel)
+        MainStructure(challengeListState = screenState.value, modifier, viewModel, navController)
     }
 }
 
 @Composable
-fun MainStructure(challengeListState: ChallengesListState, modifier: Modifier, viewModel: ChallengesListViewModel) {
+fun MainStructure(
+    challengeListState: ChallengesListState,
+    modifier: Modifier,
+    viewModel: ChallengesListViewModel,
+    navController: NavController
+) {
     val lazyColumnListState = rememberLazyListState()
 
     val shouldStartPaginate = remember {
@@ -73,14 +80,17 @@ fun MainStructure(challengeListState: ChallengesListState, modifier: Modifier, v
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        TitleText(text = "Challenges list for G8vs")
+        TitleText(text = "Challenges list for ${viewModel.getUserName()}")
 
         LazyColumn(state = lazyColumnListState) {
             items(items = challengeListState.challengesData) {
                 Row(
                     modifier
                         .fillMaxWidth()
-                        .clickable { Log.d("VKTAG", "ChallengesListScreen MainStructure: ${it.id}") },
+                        .clickable {
+                            Log.d("VKTAG", "ChallengesListScreen MainStructure: ${it.id}")
+                            navController.navigate(ChallengeInfoNavigation.challengeInfo(it.id).destination)
+                        },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     GeneralText(
@@ -125,46 +135,6 @@ fun MainStructure(challengeListState: ChallengesListState, modifier: Modifier, v
 @Composable
 fun PreviewChallengesListScreen() {
     CustomAppTheme {
-        ChallengesListScreen()
+        ChallengesListScreen(navController = rememberNavController())
     }
-}
-
-private fun getTestListData(): List<ChallengeData> {
-    return listOf(
-        ChallengeData(
-            "id",
-            "Test name",
-            "test-slug",
-            "12:23:45 2019",
-            listOf("Java", "Kotlin", "JavaScript", "Python"),
-        ),
-        ChallengeData(
-            "id",
-            "Test name very very very very very very very long",
-            "test-slug-very-very-very-very-very-very-very-long",
-            "12:23:45 2019",
-            listOf("Java", "Kotlin", "JavaScript", "Python"),
-        ),
-        ChallengeData(
-            "id",
-            null,
-            "test-slug",
-            "12:23:45 2019",
-            listOf("Java", "Kotlin", "JavaScript", "Python"),
-        ),
-        ChallengeData(
-            "id",
-            null,
-            null,
-            "12:23:45 2019",
-            listOf("Java", "Kotlin", "JavaScript", "Python"),
-        ),
-        ChallengeData(
-            "id",
-            "Test name",
-            "test-slug",
-            "12:23:45 2019",
-            emptyList(),
-        ),
-    )
 }
