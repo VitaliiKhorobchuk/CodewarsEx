@@ -27,14 +27,10 @@ object MainModule {
         return retrofit.create(CodeWarsChallengesService::class.java)
     }
 
-    // @Singleton
-    // @Provides
-    // fun providesNavigationManager() = NavigationManager()
 }
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class ActivityModule {
-
 
     @Binds
     abstract fun bindChallengesRepository(
