@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.use_case.ChallengesInfoUseCase
+import com.example.domain.utils.DomainResponse
 import com.example.myapplication.navigation.ChallengeInfoNavigation
 import com.example.myapplication.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,11 +28,15 @@ class ChallengeInfoViewModel @Inject constructor(
 
     private fun getChallengeInfo(challengeId: String) {
         viewModelScope.launch {
-            val challengeInfo = challengeInfoUseCase.getChallengeInfo(challengeId)
-            _stateFlow.value = ChallengeInfoState(
-                challengeData = challengeInfo,
-                viewState = UiState.READY
-            )
+            val challengeInfoResponse = challengeInfoUseCase.getChallengeInfo(challengeId)
+            if (challengeInfoResponse is DomainResponse.Success && challengeInfoResponse.data != null) {
+                _stateFlow.value = ChallengeInfoState(
+                    challengeData = challengeInfoResponse.data,
+                    viewState = UiState.READY
+                )
+            } else {
+                _stateFlow.value = ChallengeInfoState(viewState = UiState.ERROR)
+            }
         }
     }
 

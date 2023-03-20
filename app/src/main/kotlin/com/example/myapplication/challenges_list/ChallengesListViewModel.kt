@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.data.ChallengeData
 import com.example.domain.data.ChallengesListData
 import com.example.domain.use_case.ChallengesListUseCase
+import com.example.domain.utils.DomainResponse
 import com.example.myapplication.utils.ListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,6 +44,7 @@ class ChallengesListViewModel @Inject constructor(
     }
 
     fun getUserName() = USER_ID
+
     fun reset() {
         _stateFlow.value = ChallengesListState(listState = ListState.LOADING)
         canPaginate = true
@@ -53,18 +55,22 @@ class ChallengesListViewModel @Inject constructor(
 
     private fun getChallenges() {
         viewModelScope.launch {
-            val challengesList = challengesListUseCase.getChallengesList(getUserName(), currentPage)
-            if (currentPage == FIRST_PAGE) {
-                totalChallengesList.clear()
+            val challengesListResponse = challengesListUseCase.getChallengesList(getUserName(), currentPage)
+            if (challengesListResponse is DomainResponse.Success && challengesListResponse.data != null) {
+                if (currentPage == FIRST_PAGE) {
+                    totalChallengesList.clear()
+                }
+                totalChallengesList.addAll(challengesListResponse.data!!.challenges)
+
+                handlePages(challengesListResponse.data!!)
+
+                _stateFlow.value = ChallengesListState(
+                    challengesData = totalChallengesList,
+                    listState = ListState.IDLE
+                )
+            } else {
+                _stateFlow.value = ChallengesListState(listState = ListState.ERROR)
             }
-            totalChallengesList.addAll(challengesList.challenges)
-
-            handlePages(challengesList)
-
-            _stateFlow.value = ChallengesListState(
-                challengesData = totalChallengesList,
-                listState = ListState.IDLE
-            )
         }
     }
 
@@ -75,7 +81,6 @@ class ChallengesListViewModel @Inject constructor(
     }
 
     companion object {
-
         private const val USER_ID = "g964"
         private const val FIRST_PAGE = 1
         private const val DEFAULT_PAGES_NUMBER = 0
