@@ -5,7 +5,7 @@ import com.example.domain.data.ChallengeInfoData
 import com.example.domain.utils.DomainResponse
 import javax.inject.Inject
 
-class ChallengesInfoUseCase @Inject constructor(
+class ChallengeInfoUseCase @Inject constructor(
     private val challengesRepository: ChallengesRepository
 ) {
 

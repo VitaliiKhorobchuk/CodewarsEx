@@ -31,7 +31,9 @@ class ChallengesListViewModel @Inject constructor(
     }
 
     fun getNextPage() {
+        println("1")
         if (currentPage < totalPages) {
+            println("2")
             currentPage++
             _stateFlow.value = ChallengesListState(
                 challengesData = totalChallengesList,
@@ -39,7 +41,12 @@ class ChallengesListViewModel @Inject constructor(
             )
             getChallenges()
         } else if (totalPages != DEFAULT_PAGES_NUMBER) {
+            println("3")
             canPaginate = false
+            _stateFlow.value = ChallengesListState(
+                challengesData = totalChallengesList,
+                listState = ListState.PAGINATING
+            )
         }
     }
 

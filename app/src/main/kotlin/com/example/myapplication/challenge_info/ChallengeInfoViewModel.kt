@@ -3,7 +3,7 @@ package com.example.myapplication.challenge_info
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.use_case.ChallengesInfoUseCase
+import com.example.domain.use_case.ChallengeInfoUseCase
 import com.example.domain.utils.DomainResponse
 import com.example.myapplication.navigation.ChallengeInfoNavigation
 import com.example.myapplication.utils.UiState
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChallengeInfoViewModel @Inject constructor(
-    private val challengeInfoUseCase: ChallengesInfoUseCase,
+    private val challengeInfoUseCase: ChallengeInfoUseCase,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -46,9 +46,11 @@ class ChallengeInfoViewModel @Inject constructor(
     }
 
     private fun initData() {
-        savedStateHandle.get<String>(ChallengeInfoNavigation.KEY_CHALLENGE_ID)?.let {
-            getChallengeInfo(it)
-        } ?: {
+        if (savedStateHandle.contains(ChallengeInfoNavigation.KEY_CHALLENGE_ID)) {
+            savedStateHandle.get<String>(ChallengeInfoNavigation.KEY_CHALLENGE_ID)?.let {
+                getChallengeInfo(it)
+            }
+        } else {
             _stateFlow.value = ChallengeInfoState(viewState = UiState.ERROR)
         }
     }

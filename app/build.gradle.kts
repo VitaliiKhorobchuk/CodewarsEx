@@ -52,9 +52,7 @@ dependencies {
     implementation(Libs.appCompat)
     implementation(Libs.activity)
     implementation(Libs.activityKtx)
-    // implementation(Libs.lifecycleViewModelKtx)
     implementation(Libs.lifecycleViewModelCompose)
-    // implementation(Libs.lifecycleViewModelSavedState)
 
     implementation(Libs.retrofit)
     implementation(Libs.gsonConverter)
@@ -68,15 +66,18 @@ dependencies {
 
     // DI
     implementation(Libs.hiltAndroid)
-    // implementation(Libs.hiltViewModel)
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     kapt(Libs.hiltCompiler)
-    // kapt(Libs.hiltViewModelCompiler)
 
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
     testImplementation("junit:junit:4.13.2")
+    testImplementation("io.mockk:mockk:1.12.1")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
