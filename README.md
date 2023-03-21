@@ -14,4 +14,5 @@ Used libraries:
 
 Architecture:
  - Clean architecture
- - MVVM![Uploading 2023-03-21 02.20.51.jpg…]()
+ - MVVM
+ ![Uploading 2023-03-21 02.20.51.jpg…]()
