@@ -50,6 +50,7 @@ dependencies {
 
     implementation(Libs.coreKtx)
     implementation(Libs.appCompat)
+    implementation(Libs.material)
     implementation(Libs.activity)
     implementation(Libs.activityKtx)
     implementation(Libs.lifecycleViewModelCompose)
@@ -57,29 +58,21 @@ dependencies {
     implementation(Libs.retrofit)
     implementation(Libs.gsonConverter)
 
-    implementation("androidx.compose.ui:ui:1.3.3")
-    implementation("androidx.compose.ui:ui-tooling:1.3.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")
-    implementation("androidx.compose.material:material:1.3.1")
-    implementation("androidx.activity:activity-compose:1.6.1")
-    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation(Libs.compose)
+    implementation(Libs.composeUiTooling)
+    implementation(Libs.composeUiToolingPreivew)
+    implementation(Libs.composeMaterial)
+    implementation(Libs.activityCompose)
+    implementation(Libs.navigationCompose)
 
     // DI
     implementation(Libs.hiltAndroid)
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(Libs.hiltNavigationCompose)
     kapt(Libs.hiltCompiler)
 
-    implementation("com.google.android.material:material:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.mockk:mockk:1.12.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(Libs.jUnit)
+    testImplementation(Libs.mockk)
+    testImplementation(Libs.coroutinesTest)
 }
 
 // Allow references to generated code

@@ -34,14 +34,14 @@ dependencies {
     implementation(project(":data"))
 
     implementation(Libs.coreKtx)
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(Libs.appCompat)
     implementation(Libs.retrofit)
     implementation(Libs.kotlinxCoroutinesAndroid)
     // DI
     implementation(Libs.hiltAndroid)
     kapt(Libs.hiltCompiler)
 
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.mockk:mockk:1.12.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation(Libs.jUnit)
+    testImplementation(Libs.mockk)
+    testImplementation(Libs.coroutinesTest)
 }

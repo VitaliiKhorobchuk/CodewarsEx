@@ -41,5 +41,5 @@ dependencies {
     implementation(Libs.hiltAndroid)
     kapt(Libs.hiltCompiler)
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(Libs.jUnit)
 }
